@@ -1,8 +1,8 @@
 <script setup>
 import {ref} from "vue";
 
-const query = ref("{}")
-const groovy = ref("[:]")
+const query = ref("")
+const groovy = ref("")
 
 function convert() {
   let output = query.value.toString();
@@ -20,17 +20,30 @@ function convert() {
 </script>
 
 <template>
-  <h1>JSON MongoDB Query</h1>
-  <textarea v-model="query"></textarea>
-  <div class="btn btn-secondary m-3" @click="convert()">&downarrow;&downarrow;&downarrow; Convert to Groovy &downarrow;&downarrow;&downarrow;</div>
-  <textarea v-model="groovy"></textarea>
+  <div id="container">
+    <textarea v-model="query" placeholder="JSON" @change="convert()"></textarea>
+    <!--  <div class="btn btn-secondary m-3" @click="convert()">&downarrow;&downarrow;&downarrow; Convert to Groovy &downarrow;&downarrow;&downarrow;</div>-->
+    <textarea v-model="groovy" placeholder="groovy" readonly></textarea>
+  </div>
 </template>
 
 <style scoped>
+#container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  height: 100vh;
+}
+
 textarea {
-  min-width: 90%;
-  max-width: 800px;
-  min-height: 40vh;
+  resize: none;
   font-family: monospace;
+  flex-grow: 1;
+}
+
+@media (min-width: 800px) {
+  #container {
+    flex-direction: row;
+  }
 }
 </style>
