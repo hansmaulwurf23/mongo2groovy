@@ -17,13 +17,19 @@ function convert() {
   output = output.replace(/}/g, "]");
   groovy.value = output;
 }
+
+function syncscroll(event) {
+  let st = event.target.scrollTop;
+  Array.from(document.getElementsByTagName("textarea")).forEach((el) => {
+    el.scrollTop = st;
+  });
+}
 </script>
 
 <template>
   <div id="container">
-    <textarea v-model="query" placeholder="JSON" @change="convert()"></textarea>
-    <!--  <div class="btn btn-secondary m-3" @click="convert()">&downarrow;&downarrow;&downarrow; Convert to Groovy &downarrow;&downarrow;&downarrow;</div>-->
-    <textarea v-model="groovy" placeholder="groovy" readonly></textarea>
+    <textarea v-model="query" @scroll="syncscroll($event)" placeholder="JSON" @change="convert()"></textarea>
+    <textarea v-model="groovy" @scroll="syncscroll($event)" placeholder="groovy" readonly></textarea>
   </div>
 </template>
 
